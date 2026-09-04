@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>მიდი აბა ჰეე და აბა შენ იციი 🐢</title>
+  <meta name="description" content="ყველა სისულელე და გენიალობა, რაც შენ თქვი — ერთ ადგილას." />
+
+  <!-- მობილური / მთავარ ეკრანზე დამატება -->
+  <meta name="theme-color" content="#073a44" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="გამონათქვამები" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Georgian:wght@500;700;900&family=Noto+Sans+Georgian:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="ocean-overlay" aria-hidden="true"></div>
+
+  <main class="page">
+    <header class="hero">
+      <p class="hero__kicker">🐢 შენი პირადი ოკეანე</p>
+      <h1 class="hero__title">მიდი ოქროოო<br />ირგიალეე</h1>
+      <p class="hero__subtitle">
+        ყველა ის სისულელე, ბრძნული სიტყვა, რაც შენ თქვი 
+        ერთ ადგილას შენახული, სამუდამოდ.
+      </p>
+    </header>
+
+    <section class="composer" aria-label="ახალი ჩანაწერის დამატება">
+      <textarea
+        id="note-input"
+        class="composer__input"
+        rows="1"
+        maxlength="280"
+        placeholder="დაწერე შენი მორიგი შედევრი 🐢"
+        aria-label="ახალი გამონათქვამი"
+      ></textarea>
+      <button id="add-btn" class="composer__btn" type="button">
+        დამატება
+      </button>
+    </section>
+
+    <p id="counter" class="composer__counter" aria-live="polite"></p>
+
+    <section id="notes" class="notes" aria-live="polite"></section>
+
+    <div id="empty" class="empty" hidden>
+      <div class="empty__emoji">🐢💬</div>
+      <p class="empty__text">ჯერ ცარიელია. დროა პირველი შედევრი ჩაწერო.</p>
+    </div>
+
+    <footer class="foot">
+      <span id="count-badge" class="foot__badge"></span>
+      <span class="foot__hint">ჩანაწერები ინახება ამ მოწყობილობის ბრაუზერში 💾</span>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

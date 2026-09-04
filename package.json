@@ -1,0 +1,10 @@
+{
+  "name": "iumorinanikiturad",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "შენი ლეგენდარული გამონათქვამები — საერთო ჩანაწერების საიტი",
+  "dependencies": {
+    "@upstash/redis": "^1.38.4"
+  }
+}

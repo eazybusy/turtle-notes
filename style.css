@@ -1,0 +1,279 @@
+/* ── ტოკენები: ფერები ამოღებულია სურათიდან (ოკეანე + კუს ბაკანი) ── */
+:root {
+  --ocean-deep: #073a44;
+  --ocean:      #0e6b7a;
+  --foam:       #f3faf9;
+  --amber:      #e6ad5f;   /* კუს ბაკნის ამბერი */
+  --amber-deep: #c8863f;
+  --ink:        #06333b;   /* მუქი მწვანე-ლურჯი ტექსტისთვის ღია ბარათებზე */
+
+  --glass:        rgba(255, 255, 255, 0.16);
+  --glass-strong: rgba(255, 255, 255, 0.9);
+  --glass-line:   rgba(255, 255, 255, 0.4);
+
+  --radius: 18px;
+  --shadow: 0 10px 30px rgba(3, 30, 36, 0.28);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: "Noto Sans Georgian", system-ui, sans-serif;
+  color: var(--foam);
+  background: var(--ocean);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* კუს სურათი — ცალკე ფიქსირებულ ფენაზე (iOS-ზეც სწორად მუშაობს) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: url("assets/turtle.jpg") center / cover no-repeat;
+}
+
+/* ჩამუქება — ტექსტის წასაკითხად */
+.ocean-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(7, 58, 68, 0.15) 0%, rgba(7, 58, 68, 0.55) 100%),
+    radial-gradient(120% 80% at 50% 0%, rgba(7, 58, 68, 0) 40%, rgba(6, 51, 59, 0.45) 100%);
+}
+
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding-top: clamp(2rem, 6vw, 5rem);
+  padding-bottom: calc(3rem + env(safe-area-inset-bottom));
+  padding-left: max(1.1rem, env(safe-area-inset-left));
+  padding-right: max(1.1rem, env(safe-area-inset-right));
+}
+
+/* ── ჰერო ── */
+.hero { text-align: center; margin-bottom: clamp(2rem, 5vw, 3.25rem); }
+
+.hero__kicker {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--amber);
+  margin-bottom: 0.85rem;
+  text-shadow: 0 1px 8px rgba(3, 30, 36, 0.5);
+}
+
+.hero__title {
+  font-family: "Noto Serif Georgian", serif;
+  font-weight: 900;
+  line-height: 1.08;
+  font-size: clamp(2.2rem, 8vw, 3.6rem);
+  text-shadow: 0 2px 20px rgba(3, 30, 36, 0.5);
+}
+
+.hero__subtitle {
+  max-width: 46ch;
+  margin: 1.1rem auto 0;
+  font-size: clamp(1rem, 2.6vw, 1.12rem);
+  line-height: 1.6;
+  color: rgba(243, 250, 249, 0.92);
+  text-shadow: 0 1px 10px rgba(3, 30, 36, 0.45);
+}
+
+/* ── დამატების ველი (frosted glass) ── */
+.composer {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-end;
+  background: var(--glass);
+  border: 1px solid var(--glass-line);
+  border-radius: var(--radius);
+  padding: 0.7rem;
+  box-shadow: var(--shadow);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.composer__input {
+  flex: 1;
+  resize: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--foam);
+  font-family: inherit;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  padding: 0.55rem 0.6rem;
+  max-height: 8rem;
+  overflow-y: auto;
+}
+.composer__input::placeholder { color: rgba(243, 250, 249, 0.62); }
+
+.composer__btn {
+  flex-shrink: 0;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--amber);
+  padding: 0.7rem 1.3rem;
+  border-radius: 12px;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.composer__btn:hover { background: var(--amber-deep); }
+.composer__btn:active { transform: scale(0.96); }
+
+.composer__counter {
+  min-height: 1.2rem;
+  margin: 0.5rem 0.4rem 0;
+  font-size: 0.85rem;
+  color: rgba(243, 250, 249, 0.75);
+  text-align: right;
+}
+
+/* ── ჩანაწერების ბადე ── */
+.notes {
+  margin-top: 1.75rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.note {
+  position: relative;
+  background: var(--glass-strong);
+  color: var(--ink);
+  border-radius: 16px;
+  padding: 1.15rem 1.15rem 0.9rem;
+  box-shadow: 0 8px 22px rgba(3, 30, 36, 0.22);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  animation: pop 0.28s cubic-bezier(0.2, 0.8, 0.3, 1.2);
+}
+
+.note__text {
+  font-size: 1.06rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.note__date {
+  display: block;
+  margin-top: 0.7rem;
+  font-size: 0.78rem;
+  color: rgba(6, 51, 59, 0.55);
+}
+
+.note__del {
+  position: absolute;
+  top: 0.45rem;
+  inset-inline-end: 0.45rem;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: rgba(6, 51, 59, 0.09);
+  color: rgba(6, 51, 59, 0.65);
+  font-size: 1.05rem;
+  line-height: 1;
+  opacity: 1; /* ტაჩზე ყოველთვის ჩანს */
+  transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.note__del:hover,
+.note__del:active { background: var(--amber); color: var(--ink); }
+
+/* მაუსიან მოწყობილობებზე — გამოჩნდეს მხოლოდ hover-ზე */
+@media (hover: hover) {
+  .note__del { opacity: 0; }
+  .note:hover .note__del,
+  .note:focus-within .note__del { opacity: 1; }
+}
+
+.note.removing { animation: fade 0.22s ease forwards; }
+
+.loading {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 1.5rem;
+  color: rgba(243, 250, 249, 0.85);
+  font-size: 1rem;
+}
+
+/* ── ცარიელი მდგომარეობა ── */
+.empty {
+  margin-top: 2rem;
+  text-align: center;
+  background: var(--glass);
+  border: 1px dashed var(--glass-line);
+  border-radius: var(--radius);
+  padding: 2.5rem 1.5rem;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.empty__emoji { font-size: 2.2rem; margin-bottom: 0.6rem; }
+.empty__text { font-size: 1.05rem; color: rgba(243, 250, 249, 0.9); }
+
+/* ── ფუტერი ── */
+.foot {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.9rem;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.85rem;
+  color: rgba(243, 250, 249, 0.72);
+}
+.foot__badge {
+  background: var(--glass);
+  border: 1px solid var(--glass-line);
+  border-radius: 999px;
+  padding: 0.25rem 0.8rem;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+/* ── ფოკუსი / წვდომადობა ── */
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* ── ანიმაციები ── */
+@keyframes pop {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes fade {
+  to { opacity: 0; transform: scale(0.9); }
+}
+
+/* ── ვიწრო ეკრანები ── */
+@media (max-width: 400px) {
+  .composer {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.6rem;
+    gap: 0.5rem;
+  }
+  .composer__btn { width: 100%; padding: 0.85rem; }
+  .notes { gap: 0.85rem; }
+  .foot { flex-direction: column; gap: 0.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .note, .note.removing { animation: none; }
+  .composer__btn { transition: none; }
+}

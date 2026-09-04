@@ -1,0 +1,15 @@
+{
+  "name": "შენი ლეგენდარული გამონათქვამები",
+  "short_name": "გამონათქვამები",
+  "description": "ყველა სისულელე და გენიალობა, რაც შენ თქვი — ერთ ადგილას.",
+  "start_url": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#073a44",
+  "theme_color": "#073a44",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
