@@ -181,7 +181,7 @@ function updateMode() {
   if (!modeHint) return;
   modeHint.textContent = apiOK
     ? "ჩანაწერები საერთოა ყველა მოწყობილობაზე ☁️"
-    : "შენი უმორი სამუდამოდ უნდა დარჩეს ქვეყანას 💾";
+    : "ლოკალური რეჟიმი — ჩანაწერები ამ მოწყობილობაზე 💾";
 }
 
 // counter ველში დროებითი შეტყობინება
@@ -235,3 +235,34 @@ function loadLocal() {
       : [];
   } catch { return []; }
 }
+
+// ─────────────────────────────────────────────────────────────
+//  კუ, რომელიც კურსორს (მაუსს) ან თითს ყვება — მსუბუქი ჩამორჩენით
+// ─────────────────────────────────────────────────────────────
+(function turtleFollower() {
+  const el = document.getElementById("turtle-cursor");
+  if (!el) return;
+
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let tx = -100, ty = -100;   // სამიზნე (pointer-ის კოორდინატები)
+  let cx = -100, cy = -100;   // მიმდინარე (კუს პოზიცია)
+  let shown = false;
+
+  function onMove(e) {
+    tx = e.clientX;
+    ty = e.clientY;
+    if (!shown) { shown = true; el.style.opacity = "1"; }
+  }
+
+  window.addEventListener("pointermove", onMove, { passive: true });
+  window.addEventListener("pointerdown", onMove, { passive: true });
+
+  function loop() {
+    const k = reduce ? 1 : 0.18; // ჩამორჩენის სიგლუვე
+    cx += (tx - cx) * k;
+    cy += (ty - cy) * k;
+    el.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
